@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Shipping Manager Income Calculator</title>
+    	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap/bootstrap.min.css' %}" />
+	<script type="text/javascript" language="javascript" src="{% static 'assets/jquery/jquery-2.1.4.min.js' %}"></script>
+	<script type="text/javascript" language="javascript" src="{% static 'assets/mainCalc.js' %}"></script>
+	<script type="text/javascript" language="javascript" src="{% static 'assets/jquery/bootstrap.min.js' %}"></script>
+</head>
+<body>
+    {% include "include/nav.html" %}
+    {% include "include/version.html" %}
+    {% include "include/help.html" %}
+
+    <div id="main" class="col-md-3 col-xs-12">
+        <form id="mainForm">
+        <!--
+        <label for="boatType">Boat type: </label>
+        <select name="boatType" id="mainSelector">
+            {% for bt in bts %}
+            <option value="{{ bt.id }}">{{ bt.Name }}</option>
+            {% endfor %}
+        </select>
+        -->
+        <div class="form-group">
+        <label for="boatSelector">Choose boat: </label>
+        <select id="boatSelector" class="form-control">
+            <option>Choose a boat</option>
+            {% for boat in boats %}
+            <option value="{{boat.id}}_{{boat.Name}}_{{boat.Cost}}_{{boat.Size}}_{{boat.Speed}}_{{boat.Fuel}}_{{boat.Crew}}_{{boat.Type_id}}" >{{ boat.Name }}</option>
+            {% endfor %}
+        </select>
+        </div>
+
+        <div class="form-group">
+        <label for="loadCapSelector">Load capacity: </label>
+        <select  class="form-control" id="loadCapSelector">
+            <option>Load balancing</option>
+            {% for lB in lBs %}
+                {% if lB.loadBalance == "115%" %}
+                    <option selected="selected" value="{{lB}}_{{lB.cargoConsum}}_{{lB.oilConsum}}">{{lB}}</option>
+                {% else %}
+                    <option value="{{lB}}_{{lB.cargoConsum}}_{{lB.oilConsum}}">{{lB}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        </div>
+
+        <div class="form-group">
+        <label for="routeDemandSelector">Route Demand: </label>
+        <select class="form-control" id="routeDemandSelector">
+            <option>Route Demand</option>
+            {% for i in range1_100 %}
+                {% if i == 90 %}
+                    <option selected="selected" value="{{i}}">{{ i }}%</option>
+                {% else %}
+                    <option value="{{i}}">{{ i }}%</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        </div>
+
+        <div class="form-group">
+        <label for="staffEffSelector">Staff Efficency: </label>
+        <select class="form-control" id="staffEffSelector">
+            <option>Staff Efficency</option>
+            {% for i in range1_100 %}
+                {% if i == 100 %}
+                    <option selected="selected" value="{{i}}">{{ i }}%</option>
+                {% else %}
+                    <option value="{{i}}">{{ i }}%</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        </div>
+
+        <!--
+        <div class="form-group">
+        <label for="riskSelector">Risk: </label>
+        <select class="form-control" id="riskSelector">
+            <option>Risk</option>
+            {% for i in range1_100 %}
+                {% if i == 5 %}
+                    <option selected="selected" value="{{i}}">{{ i }}%</option>
+                {% else %}
+                    <option value="{{i}}">{{ i }}%</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        </div>
+        -->
+
+        <div class="form-group">
+        <label for="routeDistance">Route Distance: </label>
+            <div class="input-group">
+            <input type="text" class="form-control" id="routeDistance" value="3000">
+            <span class="input-group-addon">nm</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+        <label for="fuelPrice" >Fuel Price: </label>
+            <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <input type="text" class="form-control" id="fuelPrice" value="750">
+            <span class="input-group-addon">per tonne</span>
+            </div>
+        </div>
+        </form>
+    </div>
+
+    <div id="boatSpec" class="col-md-3 col-xs-12">
+        <p><strong>Name: </strong><span id="boatName"></span></p>
+        <p><strong>Cost: </strong><span id="boatCost"></span></p>
+        <p><strong>Size: </strong><span id="boatSize"></span></p>
+        <p><strong>Speed: </strong><span id="boatSpeed"></span></p>
+        <p><strong>Fuel: </strong><span id="boatFuel"></span></p>
+        <p><strong>Crew: </strong><span id="boatCrew"></span></p>
+    </div>
+
+    <div id="boatReal" class="col-md-3 col-xs-12">
+        <p><strong>Route time (in-game): </strong><span id="routeTime"></span></p>
+        <p><strong>Days: </strong><span id="routeTimeDays"></span></p>
+        <p><strong>TEU/DWT shipped: </strong><span id="capShipped"></span></p>
+        <p><strong>Fuel used: </strong><span id="fuelConsPourcentage"></span></p>
+        <p><strong>Fuel used / Trip: </strong><span id="fuelUsed"></span></p>
+        <p><strong>Total fuel cost: </strong><span id="fuelCost"></span></p>
+        <p><strong>Fuel cost / nm: </strong><span id="fuelCostPerNM"></span></p>
+    </div>
+    <div id="boatIncome" class="col-md-3 col-xs-12">
+        <p><strong>Income: </strong><span id="income"></span></p>
+        <p><strong>Income per Hour: </strong><span id="incomePerHour"></span></p>
+        <p><strong>Income Net: </strong><span id="incomeNet"></span></p>
+        <p><strong>Income Net per Hour: </strong><span id="incomeNetPerHour"></span></p>
+    </div>
+
+</body>
+</html>
