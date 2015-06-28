@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Shipping Manager Income Calculator</title>
-    	{% load staticfiles %}
-	<link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap/bootstrap.min.css' %}" />
-	<script type="text/javascript" language="javascript" src="{% static 'assets/jquery/jquery-2.1.4.min.js' %}"></script>
-	<script type="text/javascript" language="javascript" src="{% static 'assets/mainCalc.js' %}"></script>
+    <title>Shipping Manager Income Calculator</title>
+        {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap/bootstrap.min.css' %}" />
+    <script type="text/javascript" language="javascript" src="{% static 'assets/jquery/jquery-2.1.4.min.js' %}"></script>
+    <script type="text/javascript" language="javascript" src="{% static 'assets/mainCalc.js' %}"></script>
+    <script type="text/javascript" language="javascript" src="{% static 'assets/jquery/bootstrap.min.js' %}"></script>
 </head>
 <body>
-    <div class="col-md-12" id="version">
-        <p>Version 1.0</p>
-    </div>
+    {% include "include/nav.html" %}
+    {% include "include/version.html" %}
+    {% include "include/help.html" %}
 
-    <div id="main" class="col-md-3">
+    <div id="main" class="col-md-3 col-xs-12">
         <form id="mainForm">
         <!--
         <label for="boatType">Boat type: </label>
@@ -106,11 +107,10 @@
             <span class="input-group-addon">per tonne</span>
             </div>
         </div>
-
-
         </form>
     </div>
-    <div id="boatSpec" class="col-md-3">
+
+    <div id="boatSpec" class="col-md-3 col-xs-12">
         <p><strong>Name: </strong><span id="boatName"></span></p>
         <p><strong>Cost: </strong><span id="boatCost"></span></p>
         <p><strong>Size: </strong><span id="boatSize"></span></p>
@@ -119,7 +119,7 @@
         <p><strong>Crew: </strong><span id="boatCrew"></span></p>
     </div>
 
-    <div id="boatReal" class="col-md-3">
+    <div id="boatReal" class="col-md-3 col-xs-12">
         <p><strong>Route time (in-game): </strong><span id="routeTime"></span></p>
         <p><strong>Days: </strong><span id="routeTimeDays"></span></p>
         <p><strong>TEU/DWT shipped: </strong><span id="capShipped"></span></p>
@@ -128,11 +128,12 @@
         <p><strong>Total fuel cost: </strong><span id="fuelCost"></span></p>
         <p><strong>Fuel cost / nm: </strong><span id="fuelCostPerNM"></span></p>
     </div>
-    <div id="boatIncome" class="col-md-3">
+    <div id="boatIncome" class="col-md-3 col-xs-12">
         <p><strong>Income: </strong><span id="income"></span></p>
         <p><strong>Income per Hour: </strong><span id="incomePerHour"></span></p>
         <p><strong>Income Net: </strong><span id="incomeNet"></span></p>
         <p><strong>Income Net per Hour: </strong><span id="incomeNetPerHour"></span></p>
     </div>
+
 </body>
 </html>
