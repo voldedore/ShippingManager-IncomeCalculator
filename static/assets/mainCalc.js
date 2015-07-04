@@ -26,7 +26,7 @@ function incomeCalc(routeDistance, capShipped, boatType, fuelPrice){
     indexPay = 37,4531847044122;
     if(boatType == '1')
         return parseInt(routeDistance/indexPay*Math.round(capShipped)*20+incomeBase);
-    else return parseInt(0.000111711724647995*fuelPrice*routeDistance*Math.round(capShipped)+incomeBase);
+    else return parseInt(0.7*0.000111711724647995*fuelPrice*routeDistance*Math.round(capShipped)+incomeBase);
 }
 
 // FUEL USED CALC
