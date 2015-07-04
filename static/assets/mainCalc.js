@@ -54,6 +54,9 @@ $(document).ready(function(){
         /**************** str = Info du bateau choisi *******************/
 	    str = $("#boatSelector option:selected").val().split("_");
 
+        //boat size
+        boatSize = parseInt(str[3]);
+
         // BOat speed
         boatSpeed = parseInt(str[4]);
 
@@ -87,13 +90,13 @@ $(document).ready(function(){
 		$("#boatName").text(str[1]);
 		$("#boatCost").text(parseInt(str[2]).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: '0' }));
 		if(boatType == '1')
-		    $("#boatSize").text(parseInt(str[3]).toLocaleString() + ' TEU');
-		else $("#boatSize").text(parseInt(str[3]).toLocaleString() + ' DWT');
+		    $("#boatSize").text(boatSize.toLocaleString() + ' TEU');
+		else $("#boatSize").text(boatSize.toLocaleString() + ' DWT');
 		$("#boatSpeed").text(boatSpeed + ' knots');
 		$("#boatFuel").text(boatFuel.toLocaleString() + ' Kg per hour');
 		$("#boatCrew").text(parseInt(str[6]).toLocaleString());
 
-        capShipped = Math.round(parseInt(str[3])*loadCap/100*routeDemand/100*staffEff/100);
+        capShipped = Math.round(boatSize*loadCap/100*routeDemand/100*staffEff/100);
 		$("#capShipped").text(capShipped.toLocaleString());
 
 
@@ -124,7 +127,8 @@ $(document).ready(function(){
         if(boatType == "1") $("#fuelConsPourcentage").text(str2[1]);
         else  $("#fuelConsPourcentage").text(str2[2]);
 
-        $("#fuelCostPerNM").text(parseFloat(fuelUsedResult*fuelPrice/1000/routeDistance).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: '2' }));
+        fuelCostPerNM = parseFloat(fuelUsedResult*fuelPrice/1000/routeDistance);
+        $("#fuelCostPerNM").text(fuelCostPerNM.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: '2' }));
 
 
         /**************** INCOME CALC *******************/
