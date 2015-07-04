@@ -7,12 +7,14 @@
     <script type="text/javascript" language="javascript" src="{% static 'assets/jquery/jquery-2.1.4.min.js' %}"></script>
     <script type="text/javascript" language="javascript" src="{% static 'assets/mainCalc.js' %}"></script>
     <script type="text/javascript" language="javascript" src="{% static 'assets/jquery/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" language="javascript" src="{% static 'assets/compareTable.js' %}"></script>
 </head>
 <body>
     {% include "include/nav.html" %}
     {% include "include/version.html" %}
     {% include "include/help.html" %}
 
+    
     <div id="main" class="col-md-3 col-xs-12">
         <form id="mainForm">
         <!--
@@ -110,30 +112,131 @@
         </form>
     </div>
 
-    <div id="boatSpec" class="col-md-3 col-xs-12">
-        <p><strong>Name: </strong><span id="boatName"></span></p>
-        <p><strong>Cost: </strong><span id="boatCost"></span></p>
-        <p><strong>Size: </strong><span id="boatSize"></span></p>
-        <p><strong>Speed: </strong><span id="boatSpeed"></span></p>
-        <p><strong>Fuel: </strong><span id="boatFuel"></span></p>
-        <p><strong>Crew: </strong><span id="boatCrew"></span></p>
+    <div class="col-md-9">
+        <div id="boatSpec" class="col-md-4 col-xs-12">
+            <p><strong>Name: </strong><span id="boatName"></span></p>
+            <p><strong>Cost: </strong><span id="boatCost"></span></p>
+            <p><strong>Size: </strong><span id="boatSize"></span></p>
+            <p><strong>Speed: </strong><span id="boatSpeed"></span></p>
+            <p><strong>Fuel: </strong><span id="boatFuel"></span></p>
+            <p><strong>Crew: </strong><span id="boatCrew"></span></p>
+        </div>
+        <div id="boatReal" class="col-md-4 col-xs-12">
+            <p><strong>Route time (in-game): </strong><span id="routeTime"></span></p>
+            <p><strong>Days: </strong><span id="routeTimeDays"></span></p>
+            <p><strong>TEU/DWT shipped: </strong><span id="capShipped"></span></p>
+            <p><strong>Fuel used: </strong><span id="fuelConsPourcentage"></span></p>
+            <p><strong>Fuel used / Trip: </strong><span id="fuelUsed"></span></p>
+            <p><strong>Total fuel cost: </strong><span id="fuelCost"></span></p>
+            <p><strong>Fuel cost / nm: </strong><span id="fuelCostPerNM"></span></p>
+        </div>
+        <div id="boatIncome" class="col-md-4 col-xs-12">
+            <p><strong>Income: </strong><span id="income"></span></p>
+            <p><strong>Income per Hour: </strong><span id="incomePerHour"></span></p>
+            <p><strong>Income Net: </strong><span id="incomeNet"></span></p>
+            <p><strong>Income Net per Hour: </strong><span id="incomeNetPerHour"></span></p>
+        </div>
     </div>
+    <div class="col-md-9">
+            <div id="buttonList" class="col-md-3">
+                <button type="button" class="btn btn-primary" id="button1">Slot 1</button>
+                <button type="button" class="btn btn-primary" id="button2">Slot 2</button>
+                <button type="button" class="btn btn-default" id="buttonClear">Clear</button>
+                <!-- <input type="reset" class="btn btn-default" /> -->
+            </div>
+            <div class="col-md-9">
 
-    <div id="boatReal" class="col-md-3 col-xs-12">
-        <p><strong>Route time (in-game): </strong><span id="routeTime"></span></p>
-        <p><strong>Days: </strong><span id="routeTimeDays"></span></p>
-        <p><strong>TEU/DWT shipped: </strong><span id="capShipped"></span></p>
-        <p><strong>Fuel used: </strong><span id="fuelConsPourcentage"></span></p>
-        <p><strong>Fuel used / Trip: </strong><span id="fuelUsed"></span></p>
-        <p><strong>Total fuel cost: </strong><span id="fuelCost"></span></p>
-        <p><strong>Fuel cost / nm: </strong><span id="fuelCostPerNM"></span></p>
+                <table class="table table-hover" id="compareTable" >
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Compare #1</th>
+                            <th>Compare #2</th>
+                            <th>Diff</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td id="boatName1"></td>
+                            <td id="boatName2"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Cost</td>
+                            <td id="boatCost1"></td>
+                            <td id="boatCost2"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Size</td>
+                            <td id="boatSize1"></td>
+                            <td id="boatSize2"></td>
+                            <td id="diffSize"></td>
+                        </tr>
+                        <tr>
+                            <td>Speed</td>
+                            <td id="boatSpeed1"></td>
+                            <td id="boatSpeed2"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Fuel</td>
+                            <td id="boatFuel1"></td>
+                            <td id="boatFuel2"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Crew</td>
+                            <td id="boatCrew1"></td>
+                            <td id="boatCrew2"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Route time</td>
+                            <td id="routeTime1"></td>
+                            <td id="routeTime2"></td>
+                            <td id="diffRouteTime"></td>
+                        </tr>
+                        <tr>
+                            <td>Fuel cost</td>
+                            <td id="fuelCost1"></td>
+                            <td id="fuelCost2"></td>
+                            <td id="diffFuelCost"></td>
+                        </tr>
+                        <tr>
+                            <td>Fuel cost / nm</td>
+                            <td id="fuelCostPerNM1"></td>
+                            <td id="fuelCostPerNM2"></td>
+                            <td id="diffFuelCostPerNM"></td>
+                        </tr>
+                        <tr>
+                            <td>Income</td>
+                            <td id="income1"></td>
+                            <td id="income2"></td>
+                            <td id="diffIncome"></td>
+                        </tr>
+                        <tr>
+                            <td>Income Net</td>
+                            <td id="incomeNet1"></td>
+                            <td id="incomeNet2"></td>
+                            <td id="diffIncomeNet"></td>
+                        </tr>
+                        <tr>
+                            <td>Income / Hour</td>
+                            <td id="incomePerHour1"></td>
+                            <td id="incomePerHour2"></td>
+                            <td id="diffIncomePerHour"></td>
+                        </tr>
+                        <tr>
+                            <td>Income Net / Hour</td>
+                            <td id="incomeNetPerHour1"></td>
+                            <td id="incomeNetPerHour2"></td>
+                            <td id="diffIncomeNetPerHour"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
     </div>
-    <div id="boatIncome" class="col-md-3 col-xs-12">
-        <p><strong>Income: </strong><span id="income"></span></p>
-        <p><strong>Income per Hour: </strong><span id="incomePerHour"></span></p>
-        <p><strong>Income Net: </strong><span id="incomeNet"></span></p>
-        <p><strong>Income Net per Hour: </strong><span id="incomeNetPerHour"></span></p>
-    </div>
-
 </body>
 </html>
